@@ -36,11 +36,20 @@ namespace DigitalRubyShared
 
         private void LateUpdate()
         {
+            Touch touch1 = new Touch();
+            touch1.phase = 0;
+            if (Input.touchCount > 0)
+            {
+                touch1 = Input.touches[0];
+
+            }
+
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ImageScript.Reset();
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            else if (Input.GetMouseButtonUp(0) || touch1.phase.ToString() == TouchPhase.Ended.ToString())
             {
                 ImageGestureImage match = ImageScript.CheckForImageMatch();
                 if (match != null)
