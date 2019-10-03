@@ -120,6 +120,7 @@
     <Compile Include="Assets\Fingers\Prefab\Script\Gestures\SwipeGestureRecognizer.cs" />
     <Compile Include="Assets\Fingers\Prefab\Script\Gestures\TapGestureRecognizer.cs" />
     <Compile Include="Assets\Fingers\Prefab\Script\Other\FingersUtilityMethodsScript.cs" />
+    <Compile Include="Assets\Scenes\CircleCheck.cs" />
     <None Include="Assets\Fingers\ChangeLog.txt" />
     <None Include="Assets\Fingers\Readme.txt" />
     <None Include="Assets\Fingers\Prefab\Script\Other\XamarinAndroidTouchAdapter.txt" />

@@ -17,6 +17,8 @@ namespace DigitalRubyShared
         public FingersImageGestureHelperComponentScript ImageScript;
         public ParticleSystem MatchParticleSystem;
         public AudioSource AudioSourceOnMatch;
+        Touch touch1 = new Touch();
+        private int ismove = 0;
 
         private void LinesUpdated(object sender, System.EventArgs args)
         {
@@ -32,25 +34,39 @@ namespace DigitalRubyShared
         {
             ImageScript.LinesUpdated += LinesUpdated;
             ImageScript.LinesCleared += LinesCleared;
+            touch1.phase = 0;
         }
 
-        private void LateUpdate()
+        private  void Update()
         {
-            Touch touch1 = new Touch();
-            touch1.phase = 0;
             if (Input.touchCount > 0)
             {
                 touch1 = Input.touches[0];
 
             }
+            if (touch1.phase.ToString() == TouchPhase.Moved.ToString())
+            {
+                ismove ++;
+            }
+        }
 
+        private void LateUpdate()
+        {
+            
+            if (Input.touchCount > 0)
+            {
+                touch1 = Input.touches[0];
+
+            }
+            
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 ImageScript.Reset();
             }
-            else if (Input.GetMouseButtonUp(0) || touch1.phase.ToString() == TouchPhase.Ended.ToString())
+            else if (ismove > 5 && (Input.GetMouseButtonUp(0) || touch1.phase.ToString() == TouchPhase.Ended.ToString()))
             {
+                Debug.Log("ismove:" + ismove);
                 ImageGestureImage match = ImageScript.CheckForImageMatch();
                 if (match != null)
                 {
@@ -62,7 +78,9 @@ namespace DigitalRubyShared
                 {
                     Debug.Log("No match found!");
                 }
-
+                ismove = 0;
+                
+                ImageScript.Reset();
                 // TODO: Do something with the match
                 // You could get a texture from it:
                 // Texture2D texture = FingersImageAutomationScript.CreateTextureFromImageGestureImage(match);
